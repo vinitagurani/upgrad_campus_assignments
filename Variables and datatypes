@@ -45,6 +45,7 @@ public class Main {
         System.out.println ("The integer value is "+g);
 
 //question 6----------------------------adding 3 to the ASCII value of the character
+
         System.out.println ("Enter a character");
         char ch = in.next().charAt(0);
         int chi = ((int) ch) + 3;
@@ -61,6 +62,37 @@ public class Main {
         double l = in.nextDouble();
         double square_num = Math.pow(l,2);
         System.out.println ("The square of "+l+ "is "+square_num);
+
+//question 9--------------------------------------finding the discount 
+
+Scanner sc;
+int dis;float totexp;
+sc = new Scanner(System.in);
+System.out.println ("Enter the quantity and price");
+int qty = sc.nextInt();
+float price = sc.nextFloat();
+
+if(qty > 1000)
+	dis = 10;
+else
+	dis = 0;
+totexp = qty*price - qty*price*dis/100;
+system.out.println ("total xpense = " +totexp  "total discount = " +dis);
+
+// question 10-------------------------------------------
+
+int m1, m2, m3 , avg, i =1;
+Scanner sc;
+for (i = 1; i <= 10; i++)
+{
+	sc = new Scanner (System.in);
+	m1 = sc. nextInt ();
+	m2 = sc. nextInt();
+	m3 = sc.nextInt();
+	avg = (m1+m2+m3)/100;
+	System.out.println(avg);
+
+//-----------------------------------------------------------------------
 
 
 
