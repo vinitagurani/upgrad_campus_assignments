@@ -84,7 +84,23 @@ public class Main {
         }
         System.out.println (uppercase);
 
-        //----------------------------------------
+        //---------------------------------------- sum of first 100 prime numbers 
+         int i=2;
+        int sum =0;
+        for (; i <=100; i++)
+        {
+            boolean isPrime = true;
+            for (int k = 2; k <i; k++)
+            {
+                if (i%k == 0)
+                {isPrime = false;
+                break;}
+
+            }
+            if (isPrime)
+                sum +=i;
+        }
+        System.out.println ("The sum of first 100 prime numbers is "+sum);
 
 
         }
