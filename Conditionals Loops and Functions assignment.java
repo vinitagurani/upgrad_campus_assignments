@@ -166,7 +166,171 @@ public class Main {
           String s2 = "World";
           String final_string = (Main_string.substring(1)) +s2.substring(1) ;
           System.out.println (final_string);
-          //-----------------------------------------
+          //----------------------------------------- to print the first 3 words of the string, if length is less then print ###
+        String s = "";
+       String s2 = "";
+       if (s.length()>= 3)
+            s2= s.substring(0,3);
+       else if (s.length() == 2)
+           s2 =  s.substring(0,2) + "#";
+       else if (s.length() == 1)
+           s2 = s2 + "##";
+       else
+           s2 = "###";
+       System.out.println (s2);
+        //---------------------------------------- first and last character from two different strings
+      String s1 = "p";
+      String s2 = "t"; String s3;
+      if (s1.length() > 0 & s2.length() >0) {
+           // doubt
+          System.out.print (s1.charAt(0));
+          System.out.print (s2.charAt(s2.length()-1));
+          System.out.print ("\n");
+      } else if (s1.length() ==0 & s2.length() >0)
+          System.out.println ("#"+s2.charAt(s2.length()-1));
+      else if (s2.length() ==0 & s1.length()>0)
+          System.out.println (s1.charAt(0) + "#");
+      else
+          System.out.println("##");
+//-------------------------------------------------------if first and last elements are equal 
+      int num [] = {10,20,-30,40}; boolean decide = false;
+      if (num[0] == 10 || num[num.length -1] == 10) {
+          decide = true;
+      }
+      System.out.println (decide);
+      //----------------------------------------arrays
+      int array1 [] = {1,2,3,4,5};
+      int array2 []= {4,5,6,7,8};
+      int array3 [] = new int [2];
+      array3[0] = array1[0];
+      array3[1] = array2[array2.length -1];
+      System.out.println (Arrays.toString(array3)); // to print the arrays
+      //----------------------if any elementof an array contains 4 or 7
+      //suppose given array is array1
+      boolean b = false ;
+      for (int i = 0; i < array1.length; i++)
+      {
+          if (array1[i] == 4 || array1[i] == 7)
+          {
+              b= true;
+              break;
+          }
+      }
+      System.out.println (b);
+      //--------------------------------------left rotation of an array
+      int temp = array1[0];
+      System.out.println (Arrays.toString(array1));
+      for (int i = 0; i < array1.length-1; i++)
+      {
+          array1[i] = array1[i+1];
+      }
+      array1[array1.length -1] = temp;
+      System.out.println(Arrays.toString(array1));
+      //--------------------------------------largest value of an array element
+      int max = array1[0];
+      for (int i = 0; i< array1.length; i++ ){
+          if (array1[i] > max)
+              max = array1[i];
+      }
+      System.out.println (max);
+      //------------------------------------swap the first and last elements of an array
+      int swaparray []= new int [4];
+      swaparray[0] = array1[array1.length -1];
+      swaparray[swaparray.length -1] = array1[0];
+      for (int i = 1; i < swaparray.length -1; i++)
+      {
+          swaparray[i] = array1[i];
+      }
+      System.out.println (Arrays.toString(swaparray));
+      System.out.println (Arrays.toString(array1));
+      //-----------------------------------finding the max from the first last and middle values
+
+
+      int first = array1[0];
+      int last = array1[array1.length -1]; int middle = 0;
+      if (array1.length%2 != 0)
+          middle = array1[array1.length/2];
+      else
+          System.out.println ("please input an odd array");
+      int largest = first;
+      if (last > first && last > middle)
+          largest = last;
+      else if (middle >first && middle >last )
+          largest = middle;
+      //------------------------------------------ multiply the elements of two arrays
+      int mularray[] = new int [5];
+      for (int i = 0; i < array1.length; i++)
+      {
+          mularray[i] = array1[i] * array2[i];
+      }
+      for (int i: mularray)
+      {
+          System.out.print (i +" ");
+      }
+      System.out.println ("");
+//--------------------------------------------- string concatenate and use of substring method 
+      String olly = "java";
+      String harry = olly.substring(1,4);
+      String result = harry + olly +harry;
+      System.out.println (result);
+      //---------------------to check whether the string starts with a specified word
+      String line = "Hello, how are you?";
+      Scanner linescan = new Scanner (line); String word;
+           word = linescan.next();
+           System.out.println (word);
+           if (Objects.equals(word, "Hello,")) // comparing string values
+               System.out.println ("true");
+           else
+               System.out.println ("false");
+            System.out.println (line.startsWith("Hello,"));
+           //---------------------------Write a Java program starting with an integer n,
+      // divide it by 2 if it is even, or multiply it by 3 and add 1 if it is odd.
+      // Repeat the process until n = 1-
+//      System.out.println ("Enter a integer");
+//      Scanner sc = new Scanner (System.in);
+//      int n = sc .nextInt ();
+//      while (n != 1)
+//      {
+//          if (n%2 ==0 )
+//              n /= 2;
+//          if (n%2 != 0)
+//              n = (n*3 +1)/2;
+//      }
+      //----------------------------------Write a Java program that then reads an integer and calculates
+      // the sum of its digits and writes the number of each digit of the sum in English.
+      String h = "678";
+      char [] hc = h.toCharArray();
+      int sum = 0;
+      for (int i = 0; i <hc.length; i ++)
+      {
+          sum = sum + hc[i] - '0';
+      }
+      System.out.println (sum);
+      //-----------------even or odd elements in an array of integer
+      int even = 0;
+      int odd =0;
+      for (int i = 0; i <array1.length; i ++)
+      {
+          if (array1[i]%2 != 0)
+              odd += 1;
+          else
+              even +=1;
+      }
+      System.out.println ("Even elements are "+even+" odd elements are "+odd);
+      //------------------------------------------ Write a Java program to test if an array of
+      // integers contains an element 10 next to 10 or an element 20 next to 20, but not both.
+      int[] integers = new int [4];
+      boolean yorno = false;
+      boolean yorno2 = false;
+      for (int i = 0; i < integers.length-1; i ++)
+      {
+          if (integers [i] ==10 && integers [i+1]==10)
+              yorno = true;
+          if (integers [i] == 20 &integers [i+1] ==20)
+              yorno2 = true;
+
+          System.out.println (String.valueOf(yorno != yorno2));
+
 
 
 
@@ -177,7 +341,7 @@ public class Main {
 
     }
 
-    static int absolute (int a)
+    static int absolute (int a)  // user defined function
     {
         if (a >= 0)
             return (a);
