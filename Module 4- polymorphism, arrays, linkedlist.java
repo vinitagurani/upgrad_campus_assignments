@@ -164,12 +164,32 @@ public class Main {
             System.out.print(head.previous()+ "  ");
         }
 
-//--------------------15. inserting the elements in the first and last position-------------------
+//----------------------15. interface -----------------------------------------------------------
+        Searchable find = new Document("Hello, this is vinita ");
+        System.out.println ("The document contains vinita: "+find.search("vinita"));
 
-        linkedlist.addFirst("zero");
-        linkedlist.addLast("seven");
+        find = new Webpage("https://github.com/vinitagurani/upgrad_campus_assignments", "This is my upgrad capmus assignments link");
+        System.out.println ("The content contains link keyword: "+find.search("link"));
 
-//----------------------
+//---------------------16. interface sports----------------------------------------------
+
+        Sports game = new Football();
+        game.play();
+        game = new Volleyball();
+        game.play();
+
+//--------------------17. pen interface-------------------------------------------------
+
+        Pen obj = new FountainPen();
+        obj.write();
+        obj.refill();
+        FountainPen obj2= new FountainPen();
+        obj2.changeNib(); // cannot use the interface reference for concrete object that was not declared in the interfce.
+        obj2.refill();
+
+//---------------------
+
+
 
 
 
@@ -192,6 +212,58 @@ public class Main {
 
 
 
+    }
+}
+interface Pen {
+    void write ();
+    void refill();
+}
+class FountainPen implements Pen {
+    public void write(){
+        System.out.println ("interface pen: FountainPen.write");
+    }
+    public void refill (){
+        System.out.println ("interface pen: FountainPen.refill");
+    }
+    public void changeNib(){
+        System.out.println ("concrete function, FountainPen: changeNib.refill");
+    }
+
+}
+interface Sports {
+    void play();
+}
+class Football implements Sports{
+    public void play (){
+        System.out.println ("play football");
+    }
+}
+class Volleyball implements Sports {
+    public void play (){
+        System.out.println ("play volley ball");
+    }
+}
+interface Searchable {
+     boolean search (String keyword);
+}
+class Document implements Searchable {
+    private String content;
+    public Document(String content){
+        this.content = content;
+    }
+    public boolean search (String keyword){
+        return content.contains(keyword);
+    }
+}
+class Webpage implements Searchable{
+    private String url;
+    private String htmlContent;
+    public Webpage (String url, String htmlContent){
+        this.url = url;
+        this.htmlContent= htmlContent;
+    }
+    public boolean search (String keyword){
+        return htmlContent.contains(keyword);
     }
 }
 class Employee {
