@@ -38,6 +38,49 @@ public class Main {
         //ques10: find the first repeating element
         int [] arr5 = {1, 8, 2, 2, 2, 3, 4, 7, 8};
         System.out.println ("The first repeating element is "+firstReap(arr5));
+        //ques11:
+        int [] arr10 = {1, 4, 10};
+        int [] arr11 = {2, 15, 20};
+        closesSum(arr10,arr11,0);
+        //ques12:
+        int [] arr12 = {10, 12};
+        closestElement(arr10,arr11);
+    }
+     public static void closesSum(int [] arr1, int [] arr2, int x){
+        int l = 0;
+        int r = arr2.length-1;
+        int diff = Integer.MAX_VALUE;
+        int a=0,b=0;
+        while (l<arr1.length && r>=0) {
+            if (Math.abs(arr1[l]+arr2[r] -x) <diff ) {
+                diff = Math.abs(arr1[l] + arr2[r] - x);
+                a = l;
+                b= r;
+            }
+            if (arr1[l]+arr2[r] <x)
+                l++;
+            else
+                r--;
+        }
+        System.out.println ("The elements in the two arrays are "+arr1[a]+" "+arr2[b]);
+    }
+      public static void closestElement (int [] arr1, int [] arr2) {
+        int l = 0;
+        int r = arr2.length-1;
+        int diff = Integer.MAX_VALUE;
+        int a= 0, b=0;
+        while (l<arr1.length && r>= 0) {
+            if (Math.abs(arr1[l]-arr2[r]) < diff) {
+                diff = Math.abs(arr1[l] - arr2[r]);
+                a=l;
+                b=r;
+            }
+            if (arr1[l]-arr2[r]<0)
+                r--;
+            else
+                l++;
+        }
+        System.out.println ("The two element closest to each other are "+arr1[a]+" "+arr2[b]);
     }
     public static int firstReap(int [] arr) {
         int [] temp = new int [arr.length];
