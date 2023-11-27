@@ -68,6 +68,92 @@ public class Main {
 
         //ques10: method 2: T(n) = O(n)
         largestpair(arr8);
+         // ques11: fixed point
+        int [] arr9 = {-10, -5, 0, 2, 4};
+        for (int i = 0;i<arr9.length;i++) {
+            if (arr9[i] == i)
+                System.out.println ("The fixed point in the array by using linear search is "+arr9[i]);
+        }
+
+        //ques12:method 2 using  binary search
+        System.out.println ("The fixed point using binary search: "+fixedPoint(arr9, 0,arr9.length-1));
+        //ques13: print k closest elements to a given value
+        closest ((new int [] {12, 16, 22, 30, 35, 39, 42, 45, 48, 50, 53, 55, 56}), 35,4); // using linear and binar methods 
+    } // end of main function.
+      public static int crossOverLinear (int [] arr, int x) {
+        int crossover = 0;
+        if (x<= arr[0])
+            crossover=0;
+        else if (x>= arr[arr.length-1])
+            crossover = arr.length-1;
+        else {
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (arr[i] <= x && arr[i + 1] > x)
+                    crossover = i;
+            }
+        }
+        return crossover;
+    }
+    public static int crossoverBinary (int []arr, int start, int end, int x)
+    {
+        int crossover;
+        if (x<= arr[start])
+            crossover= start;
+        else if (x> arr[end])
+            crossover = end;
+        else {
+            int mid = start+ (end-start)/2;
+            if (x>=arr[mid] && arr[mid+1]>x) {
+                crossover = mid;
+            }
+            else if (arr[mid]<x)
+                crossover =crossoverBinary(arr,mid+1,end,x);
+            else
+                crossover = crossoverBinary(arr,start,mid-1,x);
+        }
+        return crossover;
+    }
+    public static void closest (int [] arr, int x, int k) {
+        //int l = crossOverLinear(arr,x);
+        int l = crossoverBinary(arr,0,arr.length-1,x);
+        int r = l+1;
+        int count = 0;
+        if (arr[l] == x)
+            l--;
+        while (l>=0 && r<arr.length && count <k){
+            if (x-arr[l] < arr[r]-x) {
+                System.out.print (arr[l--] +" ");
+                count ++;
+            }
+            else {
+                System.out.print(arr[r++] + " ");
+                count++;
+            }
+        }
+        while (l>=0 && count <k)
+        {
+            System.out.print(arr[l--] +" ");
+            count ++;
+        }
+        while (r<arr.length && count<k) {
+            System.out.print (arr[r++]+" ");
+            count ++;
+        }
+    }
+      public static int fixedPoint(int [] arr, int start, int end) {
+        if (start<=end) {
+            int mid = start + (end-start)/2;
+            if (mid == arr[mid])
+                return mid;
+            int res;
+            res = fixedPoint(arr, mid+1,end);
+            if (res != -1)
+                return res;
+           return fixedPoint(arr,start,mid-1);
+           // if (res != -1)
+
+        }
+        return -1;
     }
     public static void largestpair (int [] arr) {
         int j = 0;
