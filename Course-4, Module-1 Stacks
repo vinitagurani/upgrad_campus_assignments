@@ -1,0 +1,693 @@
+import java.util.Arrays;
+import java.util.Stack;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+    public static void main(String[] args) {
+
+        //--------1. Reverse string using stack----------------------------------------------------
+        StringBuffer st = new StringBuffer("abcdef");
+        reverseString(st);
+        System.out.println("Reversed String: "+st);
+
+        //--------2. Infix to postfix----------------------------------------------------
+        String infixPostfix = "a+b*(c^d-e)^(f+g*h)-i";
+        System.out.println("Infix to Postfix exp: "+infixToPostfix(infixPostfix));
+
+        //--------3. Infix to prefix----------------------------------------------------
+        //String infixPrefix = "x+y*z/w+u";
+        String infixPrefix = "a*b+c/d"; // some error
+        InfixToPrefix(infixPrefix);
+
+        //--------4. prefix to infix----------------------------------------------------
+        String prefix= "*-A/BC-/AKL";
+        System.out.println ("Prefix to infix exp: "+prefixToInfix(prefix));
+
+        //--------5. prefix to postfix----------------------------------------------------
+        String prefix2 = "*-A/BC-/AKL";
+        System.out.println ("Prefix to postfix exp: "+prefixToPostFix(prefix2));
+
+        //--------6. prefix to postfix----------------------------------------------------
+        String postfix = "ABC/-AK/L-*";
+        System.out.println ("Postfix to prefix exp: "+postfixToPrefix(postfix));
+
+        //--------7. postfix to infix----------------------------------------------------
+        String postfix2 = "ab*c+";
+        System.out.println ("Postfix to Infix exp: "+postfixToInfix(postfix2));
+
+        //--------8. Reverse array----------------------------------------------------
+        int [] arr = {1,2,3,4,5};
+        reverseArrayUsingRecursion(arr, 0, arr.length-1);
+        System.out.println ("Reverse array using Recursion: "+Arrays.toString(arr));
+
+        //--------9. reverse array using stack----------------------------------------------------
+        int [] arr2= {100,200,300,400,500};
+        reverseArrayUsingStack(arr2);
+        System.out.println  ("Reverse array using stack: "+Arrays.toString(arr2));
+
+        //--------10. reverse stack using recursion----------------------------------------------------
+        // why my implementation of stack is not working?
+        char [] charArray = {'1','2','3','4'};
+        Stack <Character> s = new Stack <>();
+        for (int i = charArray.length-1; i>=0;i--) {
+            s.push(charArray[i]); }
+        System.out.print("Original Stack from bottom to top: "+s);
+        //printStack(s);
+        reverseStackUsingRecursion(s);
+        System.out.println ();
+        System.out.println ("Stack after reversing from bottom to top : "+s);
+        //printStack(s);
+
+        //--------11. reverse individual words----------------------------------------------------
+        String s1 = " hello world";
+        System.out.println (reverseIndiviualWords(s1));
+
+        //--------12. implement stack using linked list----------------------------------------------------
+        StackUsingLinkedList sLinked = new StackUsingLinkedList();
+        StackUsingLinkedList s2 = new StackUsingLinkedList();
+
+        sLinked.push (1);
+        sLinked.push (2);
+        sLinked.push (3);
+        sLinked.display();
+        s2.push(4);
+        s2.push(5);
+        s2.push(6);
+        s2.merge(sLinked);
+        s2.display();
+
+        //--------13. print next greater element in right ----------------------------------------------------
+        int [] a = {4,5,2,25};
+        //int [] a = {11, 13, 21, 3};
+        printnextGreaterElementInRight(a);
+
+        //--------14. next greater in right amd left----------------------------------------------------
+        System.out.println (Arrays.toString(nextGreaterElementInRight(a)));
+        System.out.println (Arrays.toString(nextGreaterElementInLeft(a)));
+        int [] a2 = new int [] {5, 4, 3, 4, 5};
+        System.out.println ("The max Product index is "+maxProductOfIndex(a2));
+
+        //--------15. next greater frequency element----------------------------------------------------
+        int [] a3 = {1,1,2,3,4,2,1};
+        System.out.println (Arrays.toString(nextGreaterFrequencyElement(a3)));
+
+        //--------16. sorting a stack----------------------------------------------------
+        Stack <Integer> input = new Stack<>();
+        input.add(34);
+        input.add(3);
+        input.add(31);
+        input.add(98);
+        input.add(92);
+        input.add(23);
+        System.out.println (input);
+        Stack <Integer> sortedStack = sorting(input);
+        System.out.println ("This is sorted stack "+sortedStack);
+
+        //--------17. deleting from middle----------------------------------------------------
+        Stack <Integer> delMid = new Stack<>();
+        delMid.push (1);
+        delMid.push (2);
+        delMid.push (3);
+        delMid.push (4);
+        delMid.push (5);
+        deleteFromMiddle(delMid, delMid.size(), 0);
+        System.out.println ("After deleting element from middle "+delMid);
+
+        //--------18. palindrome using stack----------------------------------------------------
+        palindrome ("DAD");
+
+        //--------19. duplicate parenthesis  using stack----------------------------------------------------
+        System.out.println (duplicateParenthesis("(a+b)"));
+
+        //--------20. evaluate prefix----------------------------------------------------
+        String expPrefix = "* - 6 / 5 2 - / 8 4 1 ";
+        System.out.println ("The evaluation of prefix expression is "+computeResult(expPrefix));
+
+        //--------21. decimal to binary using stack----------------------------------------------------
+        int x= 10;
+        System.out.print ("The binary of "+x+" is ");
+        decimalToBinary(x);
+
+        //--------22. rainfall analysis using stack----------------------------------------------------
+       // int [] rainfall ={1,2,2,4,5,6,4,4,3,1,1,0};
+        int [] rainfall ={1,2,4,3,5,6};
+        rainfallAnalysis(rainfall);
+    }
+    static boolean findPath (int n, int m, int [][] pixels, boolean [][]visited, int px, int py) {
+        Stack <Node2> stack = new Stack<>();
+        int i= 0,j = 0;
+        Node2 temp = new Node2 (i,j);
+        stack.push (temp);
+        while (!stack.isEmpty()) {
+            int d = stack.peek().move;
+            i = stack.peek().x;
+            j = stack.peek().y;
+
+            stack.peek().move++;
+
+            if (i == px && j == py)
+                return true;
+            if(d == 0) {
+                if (i-1 >= 0 && pixels[i-1][j] == 1 && !visited[i-1][j]) {
+                    Node2 newNode = new Node2(i - 1, j);
+                    stack.push(newNode);
+                    visited[i - 1][j] = true;
+                }
+            }
+            else if (d == 1) {
+                if (j+1<m && pixels [i][j+1] == 1&& !visited[i][j+1]) {
+                    Node2 newNode = new Node2 (i, j+1);
+                    stack.push(newNode);
+                    visited[i][j+1] = true;
+                }
+            }
+            else if (d == 2) {
+                if (i+1<n && pixels[i+1][j] == 1&& !visited[i+1][j])
+                {
+                    Node2 newNode = new Node2 (i+1, j);
+                    stack.push(newNode);
+                    visited[i+1][j] = true;
+                }
+            }
+            else if (d == 3) {
+                if (j-1>= 0 && pixels [i][j-1] == 1 && !visited[i][j-1]) {
+                    Node2 newNode = new Node2 (i, j-1);
+                    stack.push(newNode);
+                    visited[i][j-1] = true;
+                }
+            }
+            else
+            {
+                visited[i][j] = true;
+                stack.pop();
+            }
+        }
+        return false;
+    }
+    public static void rainfallAnalysis (int [] arr) {
+        Stack <Integer> s = new Stack <>();
+        int [] result = new int [arr.length];
+      s.push (0);
+      result[0] = 1;
+      for (int i= 1 ;i< arr.length;i++) {
+          while  (!s.isEmpty() && arr[s.peek()] <= arr[i]) {
+              s.pop();
+          }
+          if (s.isEmpty())
+              result[i] = i+1;
+          else
+              result[i] = i-s.peek();
+          s.push(i);
+      }
+      System.out.println (Arrays.toString(result));
+
+    }
+    public static void decimalToBinary (int x) {
+        Stack <Integer> s = new Stack<>();
+        while (x != 0) {
+            int r = x%2;
+            s.push(r);
+            x /=2;
+        }
+        while (!s.isEmpty())
+            System.out.print (s.pop());
+        System.out.println ();
+    }
+    public static int computeResult(String input) {
+        Stack <Integer> s = new Stack <>();
+        for (int i = input.length()-1; i>= 0;i--) {
+            char ch = input.charAt(i);
+            if (Character.isDigit(ch)) {
+                s.push(Integer.parseInt(String.valueOf(ch)));
+            }
+            else if (ch != ' ')
+            {
+                int temp1= s.pop();
+                int temp2= s.pop();
+                switch (ch) {
+                    case '+':s.push(temp1+temp2); break;
+                    case '-':s.push(temp1-temp2); break;
+                    case '*':s.push(temp1*temp2); break;
+                    case '/':s.push(temp1/temp2); break;
+                    case '^':s.push(temp1^temp2);break;
+                }
+            }
+        }
+        return s.pop();
+    }
+    public static String duplicateParenthesis (String inputString) {
+        Stack<Character> s = new Stack <>();
+        int count =0;
+        for (int i =0;i<inputString.length();i++) {
+            char ch = inputString.charAt(i);
+            if (ch != ')') {
+                s.push (ch);
+            }
+            else
+            {
+                while (s.peek() != '(') {
+                    s.pop();
+                    count++;
+                }
+                s.pop();
+                if (count == 0) {
+                    return "Input string contains duplicate parenthesis";
+                }
+                if (count > 0) {
+                    count =0;
+                }
+            }
+        }
+        return "Input string does not contains duplicate parenthesis";
+    }
+    public static void palindrome (String input) {
+        //Write your code here
+        Stack <Character> s= new Stack <>();
+        for (int i =0;i<input.length();i++) {
+            s.push(input.charAt(i));
+        }
+        String reversedString = "";
+        int i = 0;
+        while (!s.isEmpty()){
+            reversedString += s.pop();
+        }
+        // if (input.isEqual(reversedString)){
+        if (input.equals(reversedString)){
+            System.out.println ("The given input is a palindrome.");
+        }
+        else
+        {
+            System.out.println ("The given input is not a palindrome.");
+        }
+
+    }
+
+    static void deleteFromMiddle (Stack <Integer> s, int n, int current) {
+        if (s.isEmpty() || current == n) {
+            return;
+        }
+        int x = s.pop();
+        deleteFromMiddle(s, n, current+1);
+        if (current != n/2)
+            s.push(x);
+    }
+    static Stack<Integer> sorting (Stack <Integer> input) {
+        Stack <Integer> s = new Stack <>();
+        while (!input.isEmpty()) {
+            int element = input.pop();
+            while (!s.isEmpty() && element < s.peek()) {
+                int temp = s.pop();
+                input.push (temp);
+            }
+            s.push (element);
+        }
+        return s;
+    }
+    static int [] nextGreaterFrequencyElement (int [] arr) {
+
+        //-----------------------algo -1-------------------- T(n) = O(n^2)
+        int [] a = new int [arr.length];
+        int [] count = new int [5];
+        //int k=0;
+        // initialize a array with -1.
+        for (int i = 0;i<arr.length;i++) {
+            count [arr[i]]++;
+       }
+//        for (int i = 0;i< arr.length;i++,k++) {
+//            for (int j= i+1;j<arr.length;j++) {
+//                if (count [arr[i]]< count[arr[j]])
+//                {
+//                    a[k] = arr[j];
+//                    break;
+//                }
+//            }
+//        }
+//        return a;
+
+        //--------------------------algo-2-----------T(n) = O(n), S(n) = O(n)
+        Stack<Integer> s = new Stack <>();
+        for (int i = 0;i< arr.length;i++) {
+            while (!s.isEmpty() && count[arr[i]]>count[arr[s.peek()]]) {
+                a[s.pop()] = arr[i];
+             }
+            s.push(i);
+        }
+        while (!s.isEmpty()) {
+            a[s.pop()] = -1;
+        }
+        return a;
+        }
+    static int maxProductOfIndex (int [] arr) {
+        int [] right = nextGreaterElementInRight(arr);
+        int [] left = nextGreaterElementInLeft(arr);
+        int max =0;
+        for (int i = 0;i<arr.length;i++) {
+            max = Math.max(max, right[i]*left[i]);
+        }
+        return max;
+    }
+    static int [] nextGreaterElementInLeft (int [] arr) {
+        int leftIndex [] = new int [arr.length];
+        Stack<Integer> s = new Stack<>();
+        for (int i = arr.length-1;i>=0;i--) {
+            while (!s.isEmpty() && arr[i] > arr[s.peek()-1]){
+                int r = s.pop();
+                leftIndex[r-1] = i+1;
+            }
+            s.push(i+1);
+        }
+        return leftIndex;
+
+    }
+    static int [] nextGreaterElementInRight (int [] arr) {
+        int rightIndex [] = new int [arr.length];
+        Stack<Integer> s = new Stack<>();
+        for (int i = 0;i<arr.length;i++) {
+            while (!s.isEmpty() && arr[i] > arr[s.peek()-1]){
+                int r = s.pop();
+                rightIndex[r-1] = i+1;
+            }
+            s.push(i+1);
+        }
+        return rightIndex;
+    }
+    static void printnextGreaterElementInRight (int [] arr) {
+        // just printing the elements without knowing index
+        int element;
+        Stack <Integer> s = new Stack ();
+        s.push(arr[0]);
+        for (int i =1;i< arr.length;i++) {
+            if (!s.isEmpty()){
+                 element = s.pop();
+                while (element<arr[i]) {
+                   System.out.println (element + "----" + arr[i]);
+                    if (s.isEmpty())
+                        break;
+                    element = s.pop();
+                }
+                if (element>arr[i])
+                    s.push (element);
+            }
+            s.push(arr[i]);
+        }
+        while (!s.isEmpty()) {
+            element = s.pop();
+            System.out.println (element +"---- -1");
+        }
+    }
+    static String reverseIndiviualWords (String st) {
+        Stack <Character> s= new Stack <>();
+        String snew = "";
+        for (int i = 0;i< st.length();i++) {
+            if (st.charAt(i) != ' ') {
+                s.push(st.charAt(i));
+            }
+            else {
+                while (!s.isEmpty()) {
+                    snew += s.pop();
+                }
+                snew += " ";
+            }
+        }
+        while (!s.isEmpty()) {
+            snew += s.pop();
+        }
+        return snew;
+    }
+    static void printStack (MyStackUsingArray s) {
+        // prints from top to bottom
+        while (!s.isEmpty()) {
+            System.out.print (s.pop() +" ");
+        }
+        System.out.println ();
+    }
+    static void insertAtBottom (Stack s, char x) {
+        if (s.isEmpty())
+            s.push(x);
+        else
+        {
+            char a = (char) s.pop();
+            insertAtBottom(s, x);
+            s.push(a);
+        }
+    }
+    static void reverseStackUsingRecursion (Stack s)
+    {
+        if (!s.isEmpty()) {
+            char x = (char) s.pop();
+            reverseStackUsingRecursion(s);
+            insertAtBottom(s, x);
+        }
+    }
+    static void reverseArrayUsingStack (int [] arr) {
+        MyStackUsingArray <Integer> s = new MyStackUsingArray<>(arr.length);
+        for (int i = 0;i< arr.length;i++) {
+            s.push(arr[i]);
+        }
+        for (int i = 0;i<arr.length;i++) {
+            arr[i] = s.pop();
+        }
+    }
+    static void reverseArrayUsingRecursion(int [] arr, int start, int end) {
+        if (start >= end)
+            return;
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+        reverseArrayUsingRecursion(arr, start+1, end-1);
+    }
+    static void print (int n){
+        if (n == 1){
+            System.out.print (n +" ");
+            return;
+        }
+        print (n-1);
+        System.out.print (n+" ");
+    }
+    static String postfixToInfix (String st) {
+        MyStackUsingArray <String> s =new MyStackUsingArray<>(st.length());
+        for (int i=0;i<st.length();i++) {
+            if (isOperand(st.charAt(i))) {
+                s.push (st.charAt(i)+"");
+            }
+            else {
+                String s1= s.pop();
+                String s2= s.pop();
+                String temp = "("+s2+st.charAt(i)+s1+")";
+                s.push(temp);
+            }
+        }
+        return s.pop();
+    }
+    static String postfixToPrefix (String st) {
+        MyStackUsingArray <String> s = new MyStackUsingArray<>(st.length());
+        for (int i = 0;i<st.length();i++) {
+            if (isOperator(st.charAt(i))) {
+                String s1= s.pop();
+                String s2= s.pop();
+                String temp = st.charAt(i)+s2+s1;
+                s.push(temp);
+            }
+            else
+                s.push(st.charAt(i)+"");
+        }
+        return s.pop();
+    }
+    static String prefixToPostFix (String st) {
+        MyStackUsingArray <String> s = new MyStackUsingArray<>(st.length());
+        for (int i = st.length()-1;i>=0;i--) {
+            if (isOperator(st.charAt(i))) {
+                String s1 = s.pop();
+                String s2 =s.pop();
+                String temp = s1+s2+st.charAt(i);
+                s.push(temp);
+            }
+            else {
+                s.push(st.charAt(i)+"");
+            }
+        }
+        return s.pop();
+    }
+    static String prefixToInfix (String st) {
+        MyStackUsingArray <String> s = new MyStackUsingArray<>(st.length());
+        for (int i = st.length()-1;i>=0;i--) {
+            if (isOperator(st.charAt(i))){
+                String s1 = s.pop();
+                String s2 = s.pop();
+                String temp = "("+s1+st.charAt(i)+s2+")";
+                s.push(temp);
+            }
+            else
+                s.push(st.charAt(i)+" ");
+        }
+        return s.pop();
+    }
+    static void InfixToPrefix (String st) {
+        String s = reverseString(st);
+        char [] scharArray = s.toCharArray();
+        for (int i = 0;i<scharArray.length; i++){
+            if (scharArray[i]== '(')
+                scharArray[i] = ')';
+            else if (scharArray[i] == ')')
+                scharArray[i] = '(';
+        }
+        String s2 = String.valueOf(scharArray);
+        System.out.println ("Infix to prefix exp: "+reverseString(infixToPostfix(s2)));
+    }
+    static boolean isOperand (char ch) {
+        return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z');
+    }
+    static boolean isDigit (char ch) {
+        return (ch>= '0' && ch<= '9');
+    }
+    static boolean isOperator (char ch) {
+        return (!isOperand(ch) && !isDigit(ch));
+    }
+    public static String infixToPostfix (String st) {
+        MyStackUsingArray <Character> s = new MyStackUsingArray<>(st.length());
+        String postFix = "";
+        int i = 0;
+        while (i<st.length()) {
+            char ch = st.charAt(i);
+            if (ch == '(')
+                s.push (ch);
+            else if (ch == ')')
+            {
+                while (!s.isEmpty() && !(s.peek()=='(')) {
+                    postFix += s.pop();
+                }
+                s.pop();
+            }
+            else if (!s.isEmpty() && isOperator(ch)) {
+                while (!s.isEmpty() && precedence(ch) <= precedence(s.peek()))
+                {
+                    postFix += s.pop();
+                }
+                s.push(ch);
+            }
+            else if (s.isEmpty() && isOperator(ch))
+                s.push (ch);
+            else
+                postFix += (ch);
+            i++;
+        }
+        if (!s.isEmpty())
+            postFix += (s.pop());
+        return postFix;
+    }
+    static String reverseString (String st) {
+        char [] s = st.toCharArray();
+        int start = 0;
+        int end = s.length-1 ;
+        while(start<end) {
+            char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
+        return String.valueOf(s);
+    }
+    static int precedence (char ch) {
+        return switch (ch) {
+            case '+', '-' -> 1;
+            case '*', '/' -> 2;
+            case '^' -> 3;
+            default -> -1;
+        };
+    }
+    public static void reverseString (StringBuffer st) {
+        MyStackUsingArray <Character> stack = new MyStackUsingArray<>(st.length());
+        for (int i = 0; i<st.length(); i++) {
+            stack.push(st.charAt(i));
+        }
+        for (int i = 0; i<st.length(); i++) {
+            char ch = stack.pop();
+            st.setCharAt(i,ch);
+        }
+    }
+}
+class Node2 {
+    int x, y;
+    int move;
+    public Node2 (int x, int y) {
+        this.x = x;
+        this.y = y;
+        this.move = 0;
+    }
+        }
+//-------------------------------------implentation of stacks------------------------------------------
+import java.util.Stack;
+
+public class StackUsingLinkedList {
+    private Node head;
+    private Node tail;
+
+    public StackUsingLinkedList() {
+        this.head = null;
+        this.tail = null;
+    }
+
+    public void push(int value) {
+        Node n = new Node(value);
+        if (head == null) {
+            head = n;
+            n.prev = null;
+            n.next = null;
+            tail = n;
+        } else {
+            n.prev = tail;
+            tail.next = n;
+            tail = n;
+        }
+    }
+
+    public void pop() {
+        if (head == null) {
+            System.out.println("underflow");
+        }
+        if (head == tail) {
+            System.out.println(head.data);
+            head = null;
+            tail = null;
+        } else {
+            Node n = tail;
+            System.out.println(n.data);
+            tail = n.prev;
+            tail.next = null;
+            n.prev = null;
+        }
+    }
+    public void merge (StackUsingLinkedList s) {
+        head.prev = s.tail;
+        s.tail.next = head;
+        head = s.head;
+        s.tail= null;
+        s.head = null;
+    }
+    public void display () {
+        if (head != null) {
+            Node n= head;
+            while (n != null){
+                System.out.print (n.data +" ");
+                n = n.next;
+            }
+        }
+        else {
+            System.out.println ("Underflow");
+        }
+        System.out.println ();
+    }
+}
+class Node {
+     int data;
+     Node prev;
+     Node next;
+    public Node (int data) {
+        this.data = data;
+        prev = null;
+        next = null;
+    }
+}
+
