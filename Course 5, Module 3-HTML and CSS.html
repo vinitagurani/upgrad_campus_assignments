@@ -58,3 +58,115 @@
 </body>
 
 </html>
+
+
+<!-- Below is the CSS file named index.css -->
+
+/* 1. Using HTML, CSS creates a horizontally scrollable container to snap on elements when scrolling. */
+.horizontal-snap {
+    margin: 5px auto;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 1rem;
+    height: calc(600px + 1rem);
+    padding: 1rem;
+    width: 480px;
+    overflow-y: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+}
+
+.horizontal-snap img {
+    width: 500px;
+    max-width: none;
+    object-fit: contain;
+    border-radius: 1rem;
+    scroll-snap-align: center;
+}
+
+/* 2.Using HTML, CSS creates an input with a visual, non-editable prefix. */
+.inputField {
+    /* background-color: grey; */
+    width: 135px;
+    border: solid 2px black;
+    border-radius: 5px;
+    padding: 3px;
+    margin-bottom: 5px;
+}
+
+.inputField input {
+    width: 100px;
+    border: none;
+    outline: none;
+    padding: 1%;
+}
+
+.inputField span {
+    /* background-color: lightgrey; */
+    padding: 1px;
+    font-weight: 300;
+    font-size: 14px;
+
+
+}
+
+/* 3.Using HTML, CSS changes the appearance of a form if any of its children are focused. */
+.dynamicForm form{
+    border: solid 2px orange;
+    padding: 20px;
+    margin-bottom: 5px;
+}
+form label {
+    display: inline-block;
+    width: 88px;
+    height: 50px;
+}
+form:focus-within{
+    background-color: lightgoldenrodyellow;
+}
+
+/* 4.Using HTML, CSS customizes the scrollbar style for elements with scrollable overflow. */
+.container{
+    border: 2px solid red;
+    margin-bottom: 5px;
+}
+.scrollable{
+    height: 100px;
+    overflow-y: scroll;
+}
+.scrollable::-webkit-scrollbar{
+    width: 8px;
+    background-color: lightgreen;
+    border-radius: 5px;
+}
+.scrollable::-webkit-scrollbar-thumb {
+    background-color: darkgreen;
+    border-radius: 5px;
+}
+
+/* 5.Using HTML, CSS displays a hamburger menu which transitions to a cross button on hover */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-flow: column wrap;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.menu .bar{
+    background-color: orange;
+    height: 5px;
+    transform-origin: left;
+    transition: all 0.5s;
+    margin: 3px 0;
+}
+.menu:hover  .top{
+    transform: rotate(45deg);
+}
+.menu:hover .middle{
+    opacity: 0;
+}
+.menu:hover .bottom{
+    transform: rotate(-45deg);
+}
