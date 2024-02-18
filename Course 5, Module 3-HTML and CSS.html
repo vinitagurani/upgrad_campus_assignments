@@ -52,7 +52,26 @@
     <div class="bar middle"></div>
     <div class="bar bottom"></div>
 </div>
-<!-- 6.Using HTML, CSS reveals an interactive popout menu on hover/focus. -->
+    
+<!-- 6.Using HTML, and CSS reveals an interactive popout menu on hover/focus. -->
+<div class="reference" tabindex="0">
+    <div class="popoutMenu">
+        this is a pop out menu.
+    </div>
+</div>
+
+<!-- 7.Using HTML, CSS fades out the siblings of a hovered item. -->
+<div class="fadingSiblings">
+    <p>Child1</p>
+    <p>Child2</p>
+    <p>Child3</p>
+</div>
+
+<!-- 8.Using HTML, CSS creates a check-box background pattern -->
+
+<div class="polkaDot">
+
+</div>
 
 
 </body>
@@ -169,4 +188,70 @@ form:focus-within{
 }
 .menu:hover .bottom{
     transform: rotate(-45deg);
+}
+
+/* 6.Using HTML, CSS reveals an interactive popout menu on hover/focus. */
+.reference {
+    position: relative;
+    width: 100px;
+    background-color: lightpink;
+    height: 80px;
+    padding: 1%;
+    border: solid 2px darkmagenta;
+    margin-bottom: 5px;
+}
+
+.popoutMenu {
+    visibility: hidden;
+    position: absolute;
+    left: 100%;
+    background-color: lightblue;
+    padding: 10px;
+    margin-left: 3px;
+
+}
+
+.reference:hover .popoutMenu,
+.reference:focus .popoutMenu,
+.reference:focus-within .popoutMenu {
+    visibility: visible;
+}
+
+/* 7.Using HTML, CSS fades out the siblings of a hovered item. */
+
+.fadingSiblings {
+    display: flex;
+    margin-bottom: 5px;
+    /* justify-content: space-between; */
+}
+
+.fadingSiblings p {
+    margin-right: 15px;
+    transition: opacity 0.5s;
+}
+
+.fadingSiblings:hover p:not(:hover) {
+    opacity: 0.5;
+}
+
+/* 8.Using HTML, CSS creates a check-box background pattern */
+.polkaDot {
+    background-image: linear-gradient(45deg,
+            #000 25%,
+            transparent 25%,
+            transparent 75%,
+            #000 75%,
+            #000),
+        linear-gradient(-45deg,
+            #000 25%,
+            transparent 25%,
+            transparent 75%,
+            #000 75%,
+            #000);
+    width: 300px;
+    height: 250px;
+    /* background-color: lightgray; */
+    background-position: 0 0 30px 30px;
+    background-repeat: repeat;
+    background-size: 60px 60px;
 }
